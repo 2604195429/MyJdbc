@@ -2,21 +2,15 @@ package cn.zxh.jdbc.day03;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.Arrays;
 
 import cn.zxh.jdbc.DBUtils;
 
-/**
- * Ö´ÐÐÒ»ÅúDDL
- * 
- * @author developer
- *
- */
 public class Demo4 {
-
 	public static void main(String[] args) {
-		String sql1 = "create table log_01 (id number(8),msg varchar(100))";
-		String sql2 = "create table log_02 (id number(8),msg varchar(100))";
-		String sql3 = "create table log_03 (id number(8),msg varchar(100))";
+		String sql1 = "insert into log_01(id,msg) values(1,'zhang')";
+		String sql2 = "insert into log_01(id,msg) values(2,'zhang2')";;
+		String sql3 = "insert into log_01(id,msg) values(3,'zhang3')";;
 		Connection conn = null;
 		try {
 			conn = DBUtils.getConnection();
@@ -26,13 +20,11 @@ public class Demo4 {
 			st.addBatch(sql2);
 			st.addBatch(sql3);
 			int[] array = st.executeBatch();
-			System.out.println(array);
+			System.out.println(Arrays.toString(array));
 		} catch (Exception e) {
 			e.printStackTrace();
-			DBUtils.rollback(conn);
 		} finally {
 			DBUtils.close(conn);
 		}
 	}
-
 }
